@@ -1,4 +1,4 @@
-class ship {
+class Ship {
   constructor(length, hp, sunk = false) {
     this.length = length;
     this.hp = hp;
@@ -20,4 +20,4 @@ class ship {
   }
 }
 
-module.exports = ship;
+module.exports = Ship;

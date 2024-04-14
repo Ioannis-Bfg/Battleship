@@ -1,12 +1,13 @@
-const ship = require("./ship");
+const Ship = require("./ship");
 const GameBoard = require("./gameboard");
+const Player = require("./player");
 
 describe("Main tests", () => {
   describe("Ship Object works correctly", () => {
     let test_ship;
 
     beforeEach(() => {
-      test_ship = new ship(3, 3, false);
+      test_ship = new Ship(3, 3, false);
     });
 
     test("Creates a new object with appropriate properties", () => {
@@ -42,7 +43,7 @@ describe("Main tests", () => {
 
     beforeEach(() => {
       test_gameBoard = new GameBoard();
-      test_ship = new ship(3, 3, false);
+      test_ship = new Ship(3, 3, false);
     });
 
     test("GameBoard is created and everything inside is null", () => {
@@ -85,6 +86,33 @@ describe("Main tests", () => {
       for (let j = 0; j < test_gameBoard.ships.length; j++) {
         expect(test_gameBoard.allShipsSunk()).toBe(true);
       }
+    });
+  });
+
+  describe("Player class works correctly", () => {
+    let user_gameBoard = new GameBoard();
+    let player1 = new Player("Ioannis", user_gameBoard);
+
+    test("Player is created,named and assigned a board", () => {
+      expect(player1.name).toBe("Ioannis");
+      expect(player1.player_board).toBe(user_gameBoard);
+    });
+
+    let enemy_gameBoard = new GameBoard();
+    let cpu = new Player("CPU", enemy_gameBoard);
+    let enemy_ship = new Ship(3, 3, false);
+    enemy_gameBoard.placeShip(0, 0, enemy_ship, true);
+
+    test("Player can attack enemy board and inflict hits", () => {
+      player1.attack(0, 0, enemy_gameBoard);
+      expect(enemy_ship.hp).toBe(2);
+    });
+
+    let user_ship = new Ship(3, 3, false);
+    user_gameBoard.placeShip(3, 3, user_ship, true);
+    cpu.attack(3, 3, user_gameBoard);
+    test("Player can get attacked by CPU ", () => {
+      expect(user_ship.hp).toBe(2);
     });
   });
 });
