@@ -27,17 +27,17 @@ class GameBoard {
 
     if (isHorizontal) {
       for (let i = 0; i < ship_length; i++) {
-        if (y + i >= this.gridSize || this.board[x][y + 1] !== null) {
-          return false;
-        }
-        new_coordinates.push([x, y + i]);
-      }
-    } else {
-      for (let i = 0; i < ship_length; i++) {
         if (x + i >= this.gridSize || this.board[x + i][y] !== null) {
           return false;
         }
         new_coordinates.push([x + i, y]);
+      }
+    } else {
+      for (let i = 0; i < ship_length; i++) {
+        if (y + i >= this.gridSize || this.board[x][y + i] !== null) {
+          return false;
+        }
+        new_coordinates.push([x, y + i]);
       }
     }
 

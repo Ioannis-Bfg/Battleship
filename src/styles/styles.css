@@ -44,48 +44,136 @@ body {
 /* ///////////////////////////////////////// */
 
 #main {
-  padding: 6% 10%;
+  padding: 4% 10%;
   height: 100%;
   box-sizing: border-box;
   display: flex;
+  /* display: none; CHANGE THIS LATER */
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
+  gap: 40px;
+  font-family: "Roboto", sans-serif;
 }
 
+#status {
+  font-size: 2em;
+  font-weight: bold;
+  padding: 2%;
+  background-color: rgb(124, 233, 151);
+  color: white;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
+  border-radius: 20px;
+}
 #boards {
   display: flex;
   justify-content: space-between;
-  gap: 20px;
+  gap: 100px;
+  height: 100%;
 }
 
 .board {
   display: grid;
   grid-template-columns: repeat(10, 1fr); /* 10 columns */
   grid-template-rows: repeat(10, 1fr); /* 10 rows */
-  gap: 2px; /* Gap between grid items */
   width: 500px; /* Adjust width as needed */
   height: 500px; /* Adjust height as needed */
 }
 
+.board div {
+  background-size: cover;
+  background-attachment: fixed;
+}
+
 .square {
-  background-color: lightgray;
-  border: 1px solid rgb(0, 0, 0);
+  border: 1px solid rgb(255, 255, 255);
 }
 
 .square:hover {
   cursor: pointer;
-  background-color: rgb(194, 194, 194);
+  opacity: 100%;
+  background-color: rgba(127, 255, 0, 0.9);
+}
+
+#user,
+#cpu {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: center;
+}
+
+#user_board:hover {
+  pointer-events: none;
+}
+
+#user,
+#cpu p {
+  font-size: 1.2em;
+  font-weight: 400;
 }
 /* //////////INTRO////////////////////////// */
 /* ///////////////////////////////////////// */
 
 #intro {
-  background-color: blue;
   height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  font-family: "Roboto", sans-serif;
 }
 
-.hidden {
+#intro p {
+  font-size: 2em;
+}
+
+#intro input {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+#intro input:hover {
+  border-color: #999;
+}
+
+#intro input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+  outline: none;
+}
+
+#intro button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#intro button:hover {
+  background-color: #0056b3;
+}
+
+#intro button:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* //////////HIDDEN////////////////////////// */
+/* ///////////////////////////////////////// */
+
+#intro.hidden {
+  display: none;
+}
+
+#main.hidden {
   display: none;
 }
 /* //////////FOOTER////////////////////////// */

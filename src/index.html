@@ -16,16 +16,28 @@
       </svg>
     </div>
     <div id="content">
-      <div id="intro" class="hidden">
+      <div id="intro">
         <p>Enter your Name</p>
-        <input type="text" />
-        <button>Start</button>
+        <input
+          type="text"
+          placeholder="Your Name"
+          minlength="3"
+          maxlength="12"
+          id="name_input"
+        />
+        <button id="start_btn">Start</button>
       </div>
-      <div id="main">
+      <div id="main" class="hidden">
         <div id="status"><p>Your Turn</p></div>
         <div id="boards">
-          <div id="user_board" class="board"></div>
-          <div id="cpu_board" class="board"></div>
+          <div id="user">
+            <p id="user_name"></p>
+            <div id="user_board" class="board"></div>
+          </div>
+          <div id="cpu">
+            <p>Enemy's board</p>
+            <div id="cpu_board" class="board"></div>
+          </div>
         </div>
       </div>
     </div>

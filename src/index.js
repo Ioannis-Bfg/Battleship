@@ -6,6 +6,7 @@ import StartGame from "./modules/gamestart";
 import "./styles/styles.css";
 import "./styles/reset.css";
 import { loadBoard } from "./modules/loadStatic";
+import { switch_intro } from "./modules/loadStatic";
 
 loadBoard();
-StartGame();
+switch_intro((inputValue) => StartGame(inputValue));
