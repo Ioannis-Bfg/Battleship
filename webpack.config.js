@@ -14,4 +14,13 @@ module.exports = {
       inject: "body",
     }),
   ],
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+
+        use: ["style-loader", "css-loader"],
+      },
+    ],
+  },
 };
