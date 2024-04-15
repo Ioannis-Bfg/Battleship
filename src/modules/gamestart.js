@@ -44,23 +44,59 @@ function StartGame(player_name) {
     enemy_patrol_boat,
   ]);
 
-  console.log("ehy");
   updateBoards(user_board, enemy_board);
-  console.log("hey");
 
-  // turn = user;
+  turn = user;
 
-  // while (!user_board.allShipsSunk || !enemy_board.allShipsSunk) {
-  //   if (turn == user) {
-  //     user.randomAttack(enemy_board);
-  //     turn = enemy;
-  //   } else if (turn == enemy) {
-  //     enemy.randomAttack(user_board);
-  //     turn = user;
-  //   }
-  // }
+  const enemy_grid = document.querySelector("#cpu_board");
+
+  if (turn == user) {
+    enemy_grid.addEventListener("click", (event) => {
+      if (event.target.classList.contains("square")) {
+        // console.log("Button clicked", event.target.id);
+        let id = event.target.id;
+        let coordinates = id.split("_").pop();
+        if (coordinates.length == 1) {
+          coordinates = 0 + coordinates;
+        }
+
+        if (
+          user.attack(
+            parseInt(coordinates[0]),
+            parseInt(coordinates[1]),
+            enemy_board
+          )
+        ) {
+          const message = document.querySelector("#status_message");
+          const status = document.querySelector("#status");
+          message.textContent = "HIT";
+          event.target.classList.add("hit");
+          status.style.backgroundColor = "green";
+        } else {
+          const message = document.querySelector("#status_message");
+          const status = document.querySelector("#status");
+          message.textContent = "MISS";
+          event.target.classList.add("miss");
+          status.style.backgroundColor = "red";
+        }
+
+        turn = enemy;
+      }
+    });
+  } else if (turn == enemy) {
+    enemy.randomAttack(user_board);
+    turn = user;
+  }
 
   return { user, enemy, user_board, enemy_board };
+}
+
+function checkWinCondition(user_board, enemy_board) {
+  if (user_board.allShipsSunk() || enemy_board.allShipsSunk()) {
+    return true;
+  } else {
+    return false;
+  }
 }
 
 function randomlyPlaceShips(board, ships) {
@@ -82,18 +118,41 @@ function updateBoards(user_board, enemy_board) {
 
   for (let row = 0; row < user_board.gridSize; row++) {
     for (let col = 0; col < user_board.gridSize; col++) {
-      if (user_board.board[row][col] !== null) {
+      if (user_board.board[row][col] != undefined) {
         let index = 0;
-        if (row == 0 && col == 0) {
-          index = 0;
+        if (row == 0) {
+          index = col;
         } else {
-          index =
-            String(row).replace(/^0+/, "") + String(col).replace(/^0+/, "");
+          index = "" + row + col;
         }
-        console.log(`u_square_${index}`);
         let temp_square = document.querySelector(`#u_square_${index}`);
 
-        temp_square.style.setProperty("background-color", "black", "important");
+        if (user_board.board[row][col].length == 2) {
+          temp_square.style.setProperty(
+            "background-color",
+            "black",
+            "important"
+          );
+        }
+        if (user_board.board[row][col].length == 4) {
+          temp_square.style.setProperty("background-color", "red", "important");
+        }
+        if (user_board.board[row][col].length == 5) {
+          temp_square.style.setProperty(
+            "background-color",
+            "orange",
+            "important"
+          );
+        }
+
+        if (user_board.board[row][col].length == 3) {
+          temp_square.style.setProperty(
+            "background-color",
+            "yellow",
+            "important"
+          );
+        }
+        // temp_square.style.setProperty("background-color", "black", "important");
       }
     }
   }
@@ -104,3 +163,18 @@ function getRandomInt(min, max) {
 }
 
 module.exports = StartGame;
+
+// if (user_board.board[row][col] == user_carrier) {
+//   temp_square.style.setProperty(
+//     "background-color",
+//     "black",
+//     "important"
+//   );
+// } else if (user_board.board[row][col] == user_battleship) {
+//   temp_square.style.setProperty("background-color", "red", "important");
+// } else if (user_board.board[row][col] == user_destroyer) {
+//   temp_square.style.setProperty(
+//     "background-color",
+//     "orange",
+//     "important"
+//   );

@@ -24,17 +24,16 @@ class GameBoard {
     const new_coordinates = [];
 
     // we need to check if the coordinates are correct and if there is any overlap with other ships which just means that all the squares should be null to place it there
-
     if (isHorizontal) {
       for (let i = 0; i < ship_length; i++) {
-        if (x + i >= this.gridSize || this.board[x + i][y] !== null) {
+        if (x + ship_length > this.gridSize || this.board[x + i][y] !== null) {
           return false;
         }
         new_coordinates.push([x + i, y]);
       }
     } else {
       for (let i = 0; i < ship_length; i++) {
-        if (y + i >= this.gridSize || this.board[x][y + i] !== null) {
+        if (y + ship_length > this.gridSize || this.board[x][y + i] !== null) {
           return false;
         }
         new_coordinates.push([x, y + i]);

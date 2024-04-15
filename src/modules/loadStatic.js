@@ -24,8 +24,12 @@ export function switch_intro(callback) {
   const input = document.querySelector("#name_input");
 
   start_btn.addEventListener("click", () => {
-    intro.classList.add("hidden");
-    main.classList.remove("hidden");
+    intro.classList.add("animation");
+    setTimeout(() => {
+      intro.classList.add("hidden");
+      main.classList.remove("hidden");
+    }, 500);
+
     if (typeof callback === "function") {
       callback(input.value); // Pass input value to the callback function
     }

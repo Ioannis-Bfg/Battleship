@@ -5,7 +5,11 @@ class Player {
   }
 
   attack(x, y, enemy_board) {
-    enemy_board.receiveAttack(x, y);
+    if (enemy_board.receiveAttack(x, y)) {
+      return true;
+    } else {
+      return false;
+    }
   }
 }
 

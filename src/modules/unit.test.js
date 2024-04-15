@@ -60,7 +60,7 @@ describe("Main tests", () => {
     });
 
     test("GameBoard correctly places ships", () => {
-      test_gameBoard.placeShip(0, 0, test_ship, true);
+      test_gameBoard.placeShip(0, 0, test_ship, false);
       expect(test_gameBoard.board[0][0]).toBe(test_ship);
       expect(test_gameBoard.board[0][1]).toBe(test_ship);
       expect(test_gameBoard.board[0][2]).toBe(test_ship);
@@ -69,7 +69,7 @@ describe("Main tests", () => {
     });
 
     test("GameBoard receives attacks and recognizes if they hit or not", () => {
-      test_gameBoard.placeShip(0, 0, test_ship, true);
+      test_gameBoard.placeShip(0, 0, test_ship, false);
       expect(test_gameBoard.receiveAttack(0, 1)).toBe(true);
       expect(test_gameBoard.receiveAttack(3, 1)).toBe(false);
     });
