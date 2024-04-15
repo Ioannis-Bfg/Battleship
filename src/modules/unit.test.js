@@ -1,6 +1,7 @@
 const Ship = require("./ship");
 const GameBoard = require("./gameboard");
 const Player = require("./player");
+const StartGame = require("./gamestart");
 
 describe("Main tests", () => {
   describe("Ship Object works correctly", () => {
@@ -113,6 +114,37 @@ describe("Main tests", () => {
     cpu.attack(3, 3, user_gameBoard);
     test("Player can get attacked by CPU ", () => {
       expect(user_ship.hp).toBe(2);
+    });
+  });
+
+  describe("StartGame works correctly", () => {
+    let user, enemy, user_board, enemy_board;
+    beforeEach(() => {
+      ({ user, enemy, user_board, enemy_board } = StartGame());
+    });
+
+    test("Boards and players are created", () => {
+      expect(user.name).toBe("Ioannis");
+      expect(enemy.name).toBe("CPU");
+      expect(user_board).toBeInstanceOf(GameBoard);
+      expect(enemy_board).toBeInstanceOf(GameBoard);
+    });
+
+    test("Players take turns playing with user starting first", () => {
+      let currentTurn = user;
+      while (!user_board.allShipsSunk && !enemy_board.allShipsSunk) {
+        expect(turn).toBe(currentTurn);
+        if (currentTurn === user) {
+          user.randomAttack(enemy_board);
+        } else {
+          enemy.randomAttack(user_board);
+        }
+        currentTurn = currentTurn === user ? enemy : user;
+      }
+    });
+
+    test("Game ends when one player's board has all ships sunk", () => {
+      expect(user_board.allShipsSunk || enemy_board.allShipsSunk).toBeTruthy();
     });
   });
 });
