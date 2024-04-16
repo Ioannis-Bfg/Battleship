@@ -2,41 +2,37 @@ const Ship = require("./ship");
 const GameBoard = require("./gameboard");
 const Player = require("./player");
 
-function StartGame(player_name) {
+function StartGame(player_name, user_board) {
   const user_name = document.querySelector("#user_name");
 
-  let user, enemy, user_board, enemy_board;
+  let user, enemy, enemy_board;
   let currentPlayer;
-
-  user_board = new GameBoard();
   user = new Player(player_name, user_board);
   user_name.textContent = `${user.name}'s board`;
 
   enemy_board = new GameBoard();
   enemy = new Player("CPU", enemy_board);
 
-  randomlyPlaceShips(user_board, [
-    new Ship(5, 5, false),
-    new Ship(4, 4, false),
-    new Ship(3, 3, false),
-    new Ship(3, 3, false),
-    new Ship(2, 2, false),
-  ]);
+  const enemy_carrier = new Ship(5, 5, false);
+  const enemy_battleship = new Ship(4, 4, false);
+  const enemy_destroyer = new Ship(3, 3, false);
+  const enemy_submarine = new Ship(3, 3, false);
+  const enemy_patrol_boat = new Ship(2, 2, false);
+
   randomlyPlaceShips(enemy_board, [
-    new Ship(5, 5, false),
-    new Ship(4, 4, false),
-    new Ship(3, 3, false),
-    new Ship(3, 3, false),
-    new Ship(2, 2, false),
+    enemy_carrier,
+    enemy_battleship,
+    enemy_destroyer,
+    enemy_submarine,
+    enemy_patrol_boat,
   ]);
-
-  updateBoards(user_board, enemy_board);
-
   console.table(enemy_board.board);
+  console.table("ingame board", user_board.board);
   currentPlayer = enemy;
 
   const enemy_grid = document.querySelector("#cpu_board");
 
+  updateBoards(user_board);
   function switchTurn() {
     currentPlayer = currentPlayer === user ? enemy : user;
     if (currentPlayer === enemy) {
@@ -158,21 +154,19 @@ function randomlyPlaceShips(board, ships) {
   }
 }
 
-function updateBoards(user_board, enemy_board) {
+function updateBoards(user_board) {
   const user_board_dom = document.querySelector("#user_board");
-  const cpu_board_dom = document.querySelector("#cpu_board");
 
   for (let row = 0; row < user_board.gridSize; row++) {
     for (let col = 0; col < user_board.gridSize; col++) {
+      let index = 0;
+      if (row == 0) {
+        index = col;
+      } else {
+        index = "" + row + col;
+      }
+      let temp_square = document.querySelector(`#u_square_${index}`);
       if (user_board.board[row][col] != undefined) {
-        let index = 0;
-        if (row == 0) {
-          index = col;
-        } else {
-          index = "" + row + col;
-        }
-        let temp_square = document.querySelector(`#u_square_${index}`);
-
         if (user_board.board[row][col].length == 2) {
           temp_square.style.setProperty(
             "background-color",
@@ -198,6 +192,9 @@ function updateBoards(user_board, enemy_board) {
             "important"
           );
         }
+      } else {
+        // Set default background color when board[row][col] is undefined
+        temp_square.style.removeProperty("background-color");
       }
     }
   }
@@ -226,4 +223,22 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-module.exports = StartGame;
+function randomizeUserBoard(user_board) {
+  const user_carrier = new Ship(5, 5, false);
+  const user_battleship = new Ship(4, 4, false);
+  const user_destroyer = new Ship(3, 3, false);
+  const user_submarine = new Ship(3, 3, false);
+  const user_patrol_boat = new Ship(2, 2, false);
+  user_board.board = user_board.createEmptyBoard();
+  randomlyPlaceShips(user_board, [
+    user_carrier,
+    user_battleship,
+    user_destroyer,
+    user_submarine,
+    user_patrol_boat,
+  ]);
+  console.table(user_board.board);
+  updateBoards(user_board);
+}
+
+module.exports = { StartGame, randomizeUserBoard };
