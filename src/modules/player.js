@@ -11,6 +11,17 @@ class Player {
       return false;
     }
   }
+
+  randomAttack(enemy_board) {
+    let x_coor, y_coor;
+
+    do {
+      x_coor = Math.floor(Math.random() * 10);
+      y_coor = Math.floor(Math.random() * 10);
+    } while (enemy_board.isAttacked(x_coor, y_coor));
+
+    return [x_coor, y_coor, enemy_board.receiveAttack(x_coor, y_coor)];
+  }
 }
 
 module.exports = Player;

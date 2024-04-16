@@ -68,6 +68,21 @@ class GameBoard {
     }
     return true;
   }
+
+  isAttacked(x, y) {
+    //
+    for (const attack of this.missedAttacks) {
+      if (attack[0] === x && attack[1] === y) {
+        return true;
+      }
+    }
+    for (const attack of this.successfulAttacks) {
+      if (attack[0] === x && attack[1] === y) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
 
 module.exports = GameBoard;
