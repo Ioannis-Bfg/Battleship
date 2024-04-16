@@ -10,6 +10,19 @@ body {
   font-family: "Roboto", sans-serif;
 }
 
+:root {
+  --text: #0a121b;
+  --background: #fafcfe;
+  --primary: #316ba9;
+  --secondary: #87b8ed;
+  --accent: #4797ed;
+  --linearPrimarySecondary: linear-gradient(#316ba9, #87b8ed);
+  --linearPrimaryAccent: linear-gradient(#316ba9, #4797ed);
+  --linearSecondaryAccent: linear-gradient(#87b8ed, #4797ed);
+  --radialPrimarySecondary: radial-gradient(#316ba9, #87b8ed);
+  --radialPrimaryAccent: radial-gradient(#316ba9, #4797ed);
+  --radialSecondaryAccent: radial-gradient(#87b8ed, #4797ed);
+}
 /* //////////HEADER////////////////////////// */
 /* ///////////////////////////////////////// */
 
@@ -20,6 +33,8 @@ body {
   align-items: center;
   font-family: "Roboto", sans-serif;
   gap: 8px;
+  background-color: var(--primary);
+  color: var(--background);
 }
 
 #header p {
@@ -30,6 +45,7 @@ body {
 #header svg {
   width: 40px;
   height: 40px;
+  fill: var(--background);
 }
 
 /* //////////CONTENT////////////////////////// */
@@ -60,7 +76,7 @@ body {
   font-size: 2em;
   /* font-weight: bold; */
   padding: 1%;
-  background-color: rgb(124, 233, 151);
+  background: var(--linearSecondaryAccent);
   color: white;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.4);
   border-radius: 20px;
@@ -72,9 +88,9 @@ body {
 }
 
 #randomize_btn {
-  background-color: #4caf50;
+  background-color: var(--background);
   border: none;
-  color: white;
+  color: var(--background);
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
@@ -83,24 +99,39 @@ body {
   cursor: pointer;
   border-radius: 50%;
   aspect-ratio: 1/1;
+  transition: background-color 0.3s ease;
+  transition: transform 0.1s ease;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
 
 #randomize_btn svg {
   width: 40px;
   height: 40px;
-  fill: white;
+  fill: var(--secondary);
+  transition: fill 0.3s ease;
 }
 
 #randomize_btn:hover {
-  background-color: #45a049;
+  background-color: var(--accent);
+  transition: background-color 0.3s ease;
+}
+
+#randomize_btn:active {
+  transform: translateY(2px);
+  transition: transform 0.1s ease;
+}
+
+#randomize_btn:hover svg {
+  fill: var(--background);
+  transition: fill 0.3s ease;
 }
 
 #begin_game {
-  background-color: #4caf50;
+  background-color: var(--background);
   aspect-ratio: 1/1;
 
   border: none;
-  color: white;
+  color: var(--background);
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
@@ -108,16 +139,31 @@ body {
   font-size: 16px;
   cursor: pointer;
   border-radius: 50%;
+  transition: background-color 0.3s ease;
+  transition: transform 0.1s ease;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
 }
 
 #begin_game svg {
   width: 40px;
   height: 40px;
-  fill: white;
+  fill: var(--secondary);
+  transition: fill 0.3s ease;
 }
 
 #begin_game:hover {
-  background-color: #45a049;
+  background-color: var(--accent);
+  transition: background-color 0.3s ease;
+}
+
+#begin_game:active {
+  transform: translateY(1px);
+  transition: transform 0.1s ease;
+}
+
+#begin_game:hover svg {
+  fill: var(--background);
+  transition: fill 0.3s ease;
 }
 
 #boards {
@@ -144,7 +190,7 @@ body {
 #user_board_overlay {
   position: absolute;
   top: 0;
-  background-color: rgba(0, 123, 255, 0.2);
+  background-color: rgba(0, 123, 255, 0.1);
   width: 100%;
   height: 100%;
 }
@@ -167,7 +213,7 @@ body {
 #cpu_board > .square:hover {
   cursor: pointer;
   opacity: 100%;
-  background-color: rgba(127, 255, 0, 0.9);
+  background-color: var(--accent);
 }
 
 #user,
@@ -275,14 +321,14 @@ body {
 }
 
 .hit {
-  background-color: rgb(28, 173, 72);
+  background-color: var(--accent);
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>skull-scan</title><path d="M2 0C.9 0 0 .9 0 2V6H2V2H6V0H2M18 0V2H22V6H24V2C24 .9 23.1 0 22 0H18M12 3C7.6 3 4 6.6 4 11C4 13.5 5.2 15.8 7 17.2V21H9V18H11V21H13V18H15V21H17V17.2C18.8 15.7 20 13.5 20 11C20 6.6 16.4 3 12 3M8 14C6.9 14 6 13.1 6 12S6.9 10 8 10 10 10.9 10 12 9.1 14 8 14M10.5 16L12 13L13.5 16H10.5M16 14C14.9 14 14 13.1 14 12S14.9 10 16 10 18 10.9 18 12 17.1 14 16 14M0 18V22C0 23.1 .9 24 2 24H6V22H2V18H0M22 18V22H18V24H22C23.1 24 24 23.1 24 22V18H22Z" /></svg>');
   pointer-events: none;
 }
 
 .miss {
   background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><title>alpha-x-box</title><path d="M9,7L11,12L9,17H11L12,14.5L13,17H15L13,12L15,7H13L12,9.5L11,7H9M5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5A2,2 0 0,1 3,19V5A2,2 0 0,1 5,3Z" /></svg>');
-  background-color: red;
+  background-color: #7940ba;
   pointer-events: none;
 }
 /* //////////FOOTER////////////////////////// */
@@ -296,11 +342,14 @@ body {
   padding: 8px;
   gap: 5px;
   font-family: "Roboto", sans-serif;
+  background-color: var(--secondary);
+  color: var(--background);
 }
 
 #footer svg {
   width: 30px;
   height: 30px;
+  fill: var(--background);
 }
 
 /* //////////MODAL////////////////////////// */
@@ -355,8 +404,17 @@ body {
   background-color: #45a049;
 }
 
-.patrol_boat {
-  background-image: url("../images/length_two_boat.svg");
-  background-size: cover;
-  background-repeat: no-repeat;
+.blocked {
+  pointer-events: none;
+}
+
+a {
+  text-decoration: none;
+  color: var(--background);
+}
+
+a {
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }

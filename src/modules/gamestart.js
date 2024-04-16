@@ -26,16 +26,18 @@ function StartGame(player_name, user_board) {
     enemy_submarine,
     enemy_patrol_boat,
   ]);
-  console.table(enemy_board.board);
-  console.table("ingame board", user_board.board);
   currentPlayer = enemy;
 
   const enemy_grid = document.querySelector("#cpu_board");
+  enemy_grid.classList.remove("blocked");
+
+  const user_grid_dom = document.querySelector("#user_board");
 
   updateBoards(user_board);
   function switchTurn() {
     currentPlayer = currentPlayer === user ? enemy : user;
     if (currentPlayer === enemy) {
+      user_grid_dom.style.opacity = "1";
       enemy_grid.style.opacity = "0.5";
       enemy_grid.style.pointerEvents = "none";
       setTimeout(() => {
@@ -43,35 +45,34 @@ function StartGame(player_name, user_board) {
         enemy_grid.style.opacity = "1";
         enemy_grid.style.pointerEvents = "";
       }, 1000);
+    } else {
+      user_grid_dom.style.opacity = "0.5";
     }
   }
 
   function handleCPUTurn() {
     const user_grid = document.querySelector("#user_board");
     let attack = enemy.randomAttack(user_board);
-    console.log(attack);
     let attack_status = attack[2];
     if (attack[0] == 0) {
       coordinates = attack[1];
     } else {
       coordinates = "" + attack[0] + attack[1];
     }
-    console.log(`#u_square_${coordinates}`);
     const attacked_square = document.querySelector(`#u_square_${coordinates}`);
-    console.log(attacked_square.id);
     if (attack_status) {
       const message = document.querySelector("#status_message");
       const status = document.querySelector("#status");
       attacked_square.classList.add("hit");
-      message.textContent = "Enemy HIT";
-      status.style.backgroundColor = "red";
+      message.textContent = "Enemy hit your ship...";
+      status.style.background = "#4797ed";
     } else {
       const message = document.querySelector("#status_message");
       const status = document.querySelector("#status");
       attacked_square.classList.add("miss");
 
-      message.textContent = "Enemy MISS";
-      status.style.backgroundColor = "green";
+      message.textContent = "Enemy missed...";
+      status.style.background = "#0a121b";
     }
     gameLoop();
   }
@@ -106,6 +107,10 @@ function StartGame(player_name, user_board) {
   }
 
   function handleUserTurn(event, user, enemy_board, switchTurn) {
+    const message = document.querySelector("#status_message");
+    const status = document.querySelector("#status");
+    user_grid_dom.style.opacity = "0.3";
+    message.style.color = "white";
     if (event.target.classList.contains("square")) {
       let id = event.target.id;
       let coordinates = id.split("_").pop();
@@ -120,17 +125,13 @@ function StartGame(player_name, user_board) {
           enemy_board
         )
       ) {
-        const message = document.querySelector("#status_message");
-        const status = document.querySelector("#status");
         message.textContent = "You hit an enemy vessel!";
         event.target.classList.add("hit");
-        status.style.backgroundColor = "green";
+        status.style.background = "#4797ed";
       } else {
-        const message = document.querySelector("#status_message");
-        const status = document.querySelector("#status");
         message.textContent = "You missed";
         event.target.classList.add("miss");
-        status.style.backgroundColor = "red";
+        status.style.setProperty("background", "#0a121b", "important");
       }
       gameLoop();
     }
@@ -170,31 +171,40 @@ function updateBoards(user_board) {
         if (user_board.board[row][col].length == 2) {
           temp_square.style.setProperty(
             "background-color",
-            "pink",
+            "#87b8ed",
             "important"
           );
+          temp_square.style.setProperty("border-radius", "50%");
         }
         if (user_board.board[row][col].length == 4) {
-          temp_square.style.setProperty("background-color", "red", "important");
+          temp_square.style.setProperty(
+            "background-color",
+            "#316ba9",
+            "important"
+          );
+          temp_square.style.setProperty("border-radius", "50%");
         }
         if (user_board.board[row][col].length == 5) {
           temp_square.style.setProperty(
             "background-color",
-            "orange",
+            " #10ddfd ",
             "important"
           );
+          temp_square.style.setProperty("border-radius", "50%");
         }
 
         if (user_board.board[row][col].length == 3) {
           temp_square.style.setProperty(
             "background-color",
-            "yellow",
+            "#4797ed",
             "important"
           );
+          temp_square.style.setProperty("border-radius", "50%");
         }
       } else {
         // Set default background color when board[row][col] is undefined
         temp_square.style.removeProperty("background-color");
+        temp_square.style.removeProperty("border-radius", "50%");
       }
     }
   }
@@ -210,11 +220,13 @@ function showWinner(winnerName) {
 
   okButton.onclick = function () {
     modal.style.display = "none";
+    location.reload();
   };
 
   window.onclick = function (event) {
     if (event.target == modal) {
       modal.style.display = "none";
+      location.reload();
     }
   };
 }
@@ -237,7 +249,6 @@ function randomizeUserBoard(user_board) {
     user_submarine,
     user_patrol_boat,
   ]);
-  console.table(user_board.board);
   updateBoards(user_board);
 }
 

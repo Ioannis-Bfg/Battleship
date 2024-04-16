@@ -11,12 +11,6 @@ export function loadBoard() {
   }
 
   for (let i = 0; i < 100; i++) {
-    const square = document.createElement("div");
-    square.id = `u_o_square_${i}`;
-    user_board_overlay.appendChild(square);
-  }
-
-  for (let i = 0; i < 100; i++) {
     const square = document.createElement("button");
     square.classList.add(`square`);
     square.id = `u_square_${i}`;
