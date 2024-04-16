@@ -1,5 +1,6 @@
 export function loadBoard() {
   const user_board = document.querySelector("#user_board");
+  const user_board_overlay = document.querySelector("#user_board_overlay");
   const cpu_board = document.querySelector("#cpu_board");
 
   for (let i = 0; i < 100; i++) {
@@ -7,6 +8,12 @@ export function loadBoard() {
     square.classList.add("square");
     square.id = `e_square_${i}`;
     cpu_board.appendChild(square);
+  }
+
+  for (let i = 0; i < 100; i++) {
+    const square = document.createElement("div");
+    square.id = `u_o_square_${i}`;
+    user_board_overlay.appendChild(square);
   }
 
   for (let i = 0; i < 100; i++) {

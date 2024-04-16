@@ -170,7 +170,7 @@ function updateBoards(user_board) {
         if (user_board.board[row][col].length == 2) {
           temp_square.style.setProperty(
             "background-color",
-            "black",
+            "pink",
             "important"
           );
         }
