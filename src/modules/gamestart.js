@@ -65,14 +65,14 @@ function StartGame(player_name, user_board) {
       const status = document.querySelector("#status");
       attacked_square.classList.add("hit");
       message.textContent = "Enemy hit your ship...";
-      status.style.background = "#4797ed";
+      status.style.background = "#558fce";
     } else {
       const message = document.querySelector("#status_message");
       const status = document.querySelector("#status");
       attacked_square.classList.add("miss");
 
       message.textContent = "Enemy missed...";
-      status.style.background = "#0a121b";
+      status.style.background = "#618296";
     }
     gameLoop();
   }
@@ -127,11 +127,11 @@ function StartGame(player_name, user_board) {
       ) {
         message.textContent = "You hit an enemy vessel!";
         event.target.classList.add("hit");
-        status.style.background = "#4797ed";
+        status.style.background = "#558fce";
       } else {
         message.textContent = "You missed";
         event.target.classList.add("miss");
-        status.style.setProperty("background", "#0a121b", "important");
+        status.style.setProperty("background", "#618296", "important");
       }
       gameLoop();
     }
@@ -174,7 +174,7 @@ function updateBoards(user_board) {
             "#87b8ed",
             "important"
           );
-          temp_square.style.setProperty("border-radius", "50%");
+          // temp_square.style.setProperty("border-radius", "50%");
         }
         if (user_board.board[row][col].length == 4) {
           temp_square.style.setProperty(
@@ -182,7 +182,7 @@ function updateBoards(user_board) {
             "#316ba9",
             "important"
           );
-          temp_square.style.setProperty("border-radius", "50%");
+          // temp_square.style.setProperty("border-radius", "50%");
         }
         if (user_board.board[row][col].length == 5) {
           temp_square.style.setProperty(
@@ -190,7 +190,7 @@ function updateBoards(user_board) {
             " #10ddfd ",
             "important"
           );
-          temp_square.style.setProperty("border-radius", "50%");
+          // temp_square.style.setProperty("border-radius", "50%");
         }
 
         if (user_board.board[row][col].length == 3) {
@@ -199,7 +199,7 @@ function updateBoards(user_board) {
             "#4797ed",
             "important"
           );
-          temp_square.style.setProperty("border-radius", "50%");
+          // temp_square.style.setProperty("border-radius", "50%");
         }
       } else {
         // Set default background color when board[row][col] is undefined
