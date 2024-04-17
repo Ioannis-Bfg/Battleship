@@ -16,6 +16,7 @@ body {
   --primary: #558fce;
   --secondary: #185d7c;
   --accent: #618296;
+  --boardcolor: #f1eded;
 
   --linearPrimarySecondary: linear-gradient(#558fce, #485a52);
   --linearPrimaryAccent: linear-gradient(#558fce, #7b8c96);
@@ -45,7 +46,7 @@ body {
   position: relative;
   background-color: var(--background);
   color: var(--text);
-  border-bottom: 1px solid rgb(238, 241, 244, 0.4);
+  border-bottom: 1px solid var(--text);
 }
 
 #header p {
@@ -119,9 +120,9 @@ body {
 }
 
 #randomize_btn {
-  background-color: var(--text);
+  background-color: var(--boardcolor);
   border: none;
-  color: var(--background);
+  color: var(--boardcolor);
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
@@ -158,11 +159,11 @@ body {
 }
 
 #begin_game {
-  background-color: var(--text);
+  background-color: var(--boardcolor);
   aspect-ratio: 1/1;
 
   border: none;
-  color: var(--background);
+  color: var(--boardcolor);
   padding: 10px 20px;
   text-align: center;
   text-decoration: none;
@@ -243,7 +244,7 @@ body {
 
 .square {
   border: 1px solid rgb(255, 255, 255);
-  background-color: var(--text);
+  background-color: var(--boardcolor);
 }
 
 #cpu_board > .square:hover {
@@ -310,7 +311,7 @@ body {
 #intro button {
   padding: 10px 20px;
   background-color: var(--secondary);
-  color: var(--text);
+  color: white;
   border: none;
   border-radius: 5px;
   font-size: 16px;
@@ -386,7 +387,7 @@ body {
 }
 
 #footer p {
-  color: var(--text);
+  color: white;
 }
 
 #footer svg {
@@ -552,4 +553,92 @@ a {
 ul li {
   list-style: square;
   line-height: 140%;
+}
+
+.dark-mode {
+  --background: #f1eded;
+  --text: #474747;
+  --primary: #558fce;
+  --secondary: #185d7c;
+  --accent: #618296;
+  --boardcolor: #b9b9b9;
+}
+
+.dark-mode #randomize_btn svg {
+  width: 40px;
+  height: 40px;
+  fill: var(--background);
+  transition: fill 0.3s ease;
+}
+
+.dark-mode #randomize_btn {
+  background-color: lightgray;
+}
+
+.dark-mode #begin_game {
+  background-color: lightgray;
+}
+
+.dark-mode #randomize_btn:hover svg {
+  width: 40px;
+  height: 40px;
+  fill: var(--accent);
+  transition: fill 0.3s ease;
+}
+
+.dark-mode #begin_game svg {
+  width: 40px;
+  height: 40px;
+  fill: var(--background);
+  transition: fill 0.3s ease;
+}
+
+.dark-mode #begin_game:hover svg {
+  width: 40px;
+  height: 40px;
+  fill: var(--primary);
+  transition: fill 0.3s ease;
+}
+
+.toggle-container {
+  position: absolute;
+  left: 2svw;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+
+.toggle-input {
+  display: none;
+}
+
+.toggle-label {
+  display: block;
+  width: 40px;
+  height: 20px;
+  background-color: #7bdbec;
+  border-radius: 10px;
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle-label::after {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  transition: transform 0.3s ease;
+}
+
+.toggle-input:checked + .toggle-label {
+  background-color: #77b7ff; /* Green color for dark mode */
+}
+
+.toggle-input:checked + .toggle-label::after {
+  transform: translateX(20px); /* Move the knob to the right for dark mode */
 }

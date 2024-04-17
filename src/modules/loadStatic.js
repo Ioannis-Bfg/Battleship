@@ -25,6 +25,13 @@ export function switch_intro(callback) {
   const input = document.querySelector("#name_input");
 
   start_btn.addEventListener("click", () => {
+    const name = input.value.trim();
+
+    // Check if the length of the name is within the desired range
+    if (name.length < 3 || name.length > 12) {
+      alert("Please enter a name between 3 and 12 characters.");
+      return; // Stop the function execution if the name length is not valid
+    }
     intro.classList.add("animation");
     setTimeout(() => {
       intro.classList.add("hidden");

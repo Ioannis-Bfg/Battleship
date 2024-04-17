@@ -49,3 +49,7 @@ window.onclick = function (event) {
     modal.style.display = "none";
   }
 };
+
+document.getElementById("mode-toggle").addEventListener("change", function () {
+  document.body.classList.toggle("dark-mode");
+});
